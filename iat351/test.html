@@ -1,0 +1,43 @@
+
+<head>
+<script src="lib/jquery-2.1.1.js"></script>
+<script src="lib/jcarousel/jquery.jcarousel.js"></script>
+</head>
+<body>
+  <!-- Wrapper -->
+  <div>
+    <!-- Carousel -->
+    <div class="jcarousel">
+      <ul>
+        <li>...</li>
+        <li>.2.</li>
+      </ul>
+      <ul>
+        <li>...</li>
+        <li>.3.</li>
+      </ul>
+    </div>
+
+    <!-- Controls -->
+    <a class="jcarousel-prev" href="#">Prev</a>
+    <a class="jcarousel-next" href="#">Next</a>
+  </div>
+</body>
+
+<script>
+$( document ).ready(function() {
+
+});
+
+$(function() {
+  $('.jcarousel').jcarousel();
+
+  $('.jcarousel-prev').jcarouselControl({
+    target: '-=1'
+  });
+
+  $('.jcarousel-next').jcarouselControl({
+    target: '+=1'
+  });
+});
+</script>
