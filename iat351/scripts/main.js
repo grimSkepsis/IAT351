@@ -6,6 +6,9 @@ $(function() {
   $( "#filter_panel" ).accordion({
     collapsible: true
   });
+  $( "#hor_filter" ).selectmenu();
+
+  $( "#vert_filter" ).selectmenu();
 });
 
 
@@ -51,6 +54,15 @@ function selectCharacter(circle){
   );
 }
 
+function unselectAll(){
+  if(previousCharacter != null){
+    $(previousCharacter).animate(
+      {'background-color' : '#252e60'},
+      "fast"
+    );
+  }
+  previousCharacter = null;
+}
 
 
 //function for opening side menu
@@ -71,25 +83,128 @@ function closeMenu ()
 
 
 
+function createCharacterCircles(){
+  $.get( "ajax/create_character_circles.php", function( data ) {
+    $( "#character_pane" ).html( data );
+    bindCircleListeners();
+  });
+}
+
+function sortCharacters(dir, property){
+  var direction = dir;
+
+  var characterCircleArray = [];
+  var characterNameArray = [];
+  $('.character_circle').each(function(i, obj) {
+    characterCircleArray.push(obj);
+    characterNameArray.push($(obj).attr(property));
+  });
+
+  characterNameArray.sort();
+
+  for(var i = 0; i < characterCircleArray.length; i++){
+    var pos = (100/characterCircleArray.length) * characterNameArray.indexOf($(characterCircleArray[i]).attr(property));
+    console.log(pos);
+    if(direction == 'hor'){
+    $(characterCircleArray[i]).animate(
+      {'left' : pos+'%'},
+      'slow'
+    );
+  }else if(direction == 'ver'){
+    $(characterCircleArray[i]).animate(
+      {'top' : pos+'%'},
+      'slow'
+    );
+  }
+  }
+
+}
+
+function createCharacterCircles(){
+  $.get( "ajax/create_character_circles.php", function( data ) {
+    $( "#character_pane" ).html( data );
+    bindCircleListeners();
+  });
+}
+
+function sortCharactersNum(dir, property){
+  var direction = dir;
+
+  var characterCircleArray = [];
+  var characterNameArray = [];
+  $('.character_circle').each(function(i, obj) {
+    characterCircleArray.push(obj);
+    characterNameArray.push($(obj).attr(property));
+  });
+
+  characterNameArray.sort(function(a, b){return a-b});
+
+  for(var i = 0; i < characterCircleArray.length; i++){
+    var pos = (100/characterCircleArray.length) * characterNameArray.indexOf($(characterCircleArray[i]).attr(property));
+    console.log(pos);
+    if(direction == 'hor'){
+      $(characterCircleArray[i]).animate(
+        {'left' : pos+'%'},
+        'slow'
+      );
+    }else if(direction == 'ver'){
+      $(characterCircleArray[i]).animate(
+        {'top' : pos+'%'},
+        'slow'
+      );
+    }
+  }
+
+}
+
+
+
+
 
 
 //on ready events bind event listeners
 $( document ).ready(function() {
-
-//event listener for character circles
-$(".character_circle").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
-{
-  getCharacterInfo($(this).attr("cid"));
-  selectCharacter(this);
-  previousCharacter = this;
-
-  //alert($(this).attr("cid"));
-});
-
+  createCharacterCircles();
 //event listener for displaying and hiding the side menu panel
 $(".toggle").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
 {
-
+  unselectAll();
   closeMenu();
 });
+$(".sort_alpha_hor").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
+{
+  sortCharacters('hor','cname');
 });
+$(".sort_alpha_ver").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
+{
+  sortCharacters('ver','cname');
+});
+$(".sort_tier_hor").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
+{
+  sortCharactersNum('hor','tier');
+});
+$(".sort_tier_ver").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
+{
+  sortCharactersNum('ver','tier');
+});
+$(".sort_diff_hor").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
+{
+  sortCharactersNum('hor','difficulty');
+});
+$(".sort_diff_ver").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
+{
+  sortCharactersNum('ver','difficulty');
+});
+});
+
+function bindCircleListeners(){
+  //event listener for character circles
+  $(".character_circle").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
+  {
+    getCharacterInfo($(this).attr("cid"));
+    selectCharacter(this);
+    previousCharacter = this;
+
+    //alert($(this).attr("cid"));
+  });
+}

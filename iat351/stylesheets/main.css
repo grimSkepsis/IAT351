@@ -11,6 +11,7 @@ html, body {
 }
 
 #character_pane{
+  position:relative;
   float:left;
   background-color:#98dd6e;
   width:100%;
@@ -39,11 +40,21 @@ overflow:visible;
 }
 
 .character_circle{
+  margin: 5px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
   behavior: url(PIE.htc); /* remove if you don't care about IE8 */
   background-color:#252e60;
+  position:absolute;
+}
+
+.character_circle img {
+  position:absolute;
+  width: 80%;
+  height: 80%;
+  left: 10%;
+  top: 10%;
 }
 .tabs a {
   font-size: 10px;
