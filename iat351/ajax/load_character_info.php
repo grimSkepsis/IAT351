@@ -32,8 +32,8 @@
   </div>
 </div>
 <center>
-  <button class="toggle">Similar</button>
-  <button class="toggle">Compare</button>
+  <button id="similar">Similar</button>
+  <button id="compare">Compare</button>
 </center>
 <script>
   $(function() {
