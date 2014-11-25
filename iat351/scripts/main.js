@@ -1,11 +1,15 @@
 var infoPanelOpen = false;
 var previousCharacter = null;
 
+
+
 //function for the collapsible filter menu
 $(function() {
   $( "#filter_panel" ).accordion({
-    collapsible: true
+    collapsible: true,
+    "heightStyle" : "content"
   });
+
   $( "#hor_filter" ).selectmenu();
 
   $( "#vert_filter" ).selectmenu();
@@ -29,6 +33,21 @@ function openMenu ()
   }
 }
 
+//function for opening side menu
+function closeMenu ()
+{
+  if(infoPanelOpen){
+    infoPanelOpen = false;
+    $("#info_panel").animate (
+      { 'width' : '0%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
+      1000 // The next parameter is the duration of the animation.
+    );
+    $("#character_pane").animate (
+      { 'width' : '100%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
+      1000 // The next parameter is the duration of the animation.
+    );
+  }
+}
 
 //function that pulls character info from db
 function getCharacterInfo(cid){
@@ -65,21 +84,6 @@ function unselectAll(){
 }
 
 
-//function for opening side menu
-function closeMenu ()
-{
-  if(infoPanelOpen){
-    infoPanelOpen = false;
-    $("#info_panel").animate (
-      { 'width' : '0%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
-      1000 // The next parameter is the duration of the animation.
-    );
-    $("#character_pane").animate (
-      { 'width' : '100%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
-      1000 // The next parameter is the duration of the animation.
-    );
-  }
-}
 
 
 
@@ -124,7 +128,10 @@ function createCharacterCircles(){
   $.get( "ajax/create_character_circles.php", function( data ) {
     $( "#character_pane" ).html( data );
     bindCircleListeners();
+    sortCharacters('ver', $('option:selected',  $('#vert_filter')).attr('val'));
+    sortCharacters('hor', $('option:selected', $('#hor_filter')).attr('val'));
   });
+
 }
 
 function sortCharactersNum(dir, property){
@@ -165,36 +172,23 @@ function sortCharactersNum(dir, property){
 //on ready events bind event listeners
 $( document ).ready(function() {
   createCharacterCircles();
-//event listener for displaying and hiding the side menu panel
-$(".toggle").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
-{
-  unselectAll();
-  closeMenu();
-});
-$(".sort_alpha_hor").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
-{
-  sortCharacters('hor','cname');
-});
-$(".sort_alpha_ver").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
-{
-  sortCharacters('ver','cname');
-});
-$(".sort_tier_hor").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
-{
-  sortCharactersNum('hor','tier');
-});
-$(".sort_tier_ver").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
-{
-  sortCharactersNum('ver','tier');
-});
-$(".sort_diff_hor").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
-{
-  sortCharactersNum('hor','difficulty');
-});
-$(".sort_diff_ver").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
-{
-  sortCharactersNum('ver','difficulty');
-});
+
+$( "#vert_filter" ).on( "selectmenuchange", function( event, ui ) {
+  var value = $('option:selected', this).attr('val');
+  if(value === "cname"){
+    sortCharacters("ver",value);
+  }else{
+    sortCharactersNum("ver",value);
+  }
+} );
+$( "#hor_filter" ).on( "selectmenuchange", function( event, ui ) {
+  var value = $('option:selected', this).attr('val');
+  if(value === "cname"){
+    sortCharacters("hor",value);
+  }else{
+    sortCharactersNum("hor",value);
+  }
+} );
 });
 
 function bindCircleListeners(){

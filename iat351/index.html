@@ -17,59 +17,35 @@
   <div id = "filter_panel">
     <h3>Filters</h3>
     <div>
-      <button class="toggle">A button element</button>
-      <button class="sort_alpha_hor">Sort Alpha horizontally </button>
-      <button class="sort_alpha_ver">Sort Alpha vertically </button>
-      <button class="sort_tier_hor">Sort Tier horizontally </button>
-      <button class="sort_tier_ver">Sort Tier vertically </button>
-      <button class="sort_diff_hor">Sort Difficulty horizontally </button>
-      <button class="sort_diff_ver">Sort Difficulty vertically </button>
 
-      <!-- <form action="#">
+      <div class = "filter_section_wrapper">
+        <h2>Sorting</h2>
 
-        <fieldset>
-          <label for="vert_filter">Verticle Order</label>
-          <select  class = "filter_menu" name="vert_filter" id="vert_filter">
-            <option>Alphabetical</option>
-            <option>Difficulty</option>
-            <option selected="selected">Tier</option>
+        <form action="#">
+          <label for="vert_filter">Verticle Order</label><br>
+          <select  name="vert_filter" id="vert_filter">
+            <option val = "cname"  selected="selected">Alphabetical</option>
+            <option val = "difficulty">Difficulty</option>
+            <option val = "tier">Tier</option>
+          </select><br><br>
+
+          <label for="hor_filter">Horizontal Order</label><br>
+          <select name="hor_filter" id="hor_filter">
+            <option val = "cname" selected="selected">Alphabetical</option>
+            <option val = "difficulty">Difficulty</option>
+            <option val = "tier">Tier</option>
           </select>
-
-          <label for="hor_filter">Horizontal Order</label>
-          <select class = "filter_menu" name="hor_filter" id="hor_filter">
-            <option><p>Alphabetical</p></option>
-            <option>Difficulty</option>
-            <option selected="selected">Tier</option>
-          </select>
-        </fieldset>
-      </form> -->
+        </form>
 
     </div>
   </div>
+</div>
+
   <div id = "content_wrapper">
       <div id = "character_pane">
-        <!-- <div class = "character_circle" cid = "1">
-        </div>
-        <div class = "character_circle" cid = "2">
-        </div>
-        <div class = "character_circle" cid = "3">
-        </div>
-        <div class = "character_circle" cid = "4">
-        </div>
-        <div class = "character_circle" cid = "5">
-        </div>
-        <div class = "character_circle" cid = "6">
-        </div>
-        <div class = "character_circle" cid = "7">
-        </div>
-        <div class = "character_circle" cid = "9">
-        </div>
-        <div class = "character_circle" cid = "10">
-        </div> -->
       </div>
 
       <div id = "info_panel">
       </div>
-
   </div>
 </body>
