@@ -24,6 +24,13 @@ html, body {
   width:0%;
   height:90%;
   overflow:hidden;
+
+}
+
+#info_panel h3 {
+  padding:0;
+  margin:0;
+
 }
 
 #filter_panel{
@@ -68,7 +75,7 @@ overflow:visible;
   font-size: 10px;
 }
 .tabs {
-  height:60%;
+  height:40%;
 }
 .tabs p{
   font-size:12px;

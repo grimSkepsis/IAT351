@@ -1,20 +1,8 @@
 var infoPanelOpen = false;
 var previousCharacter = null;
-
-
-
-//function for the collapsible filter menu
-$(function() {
-  $( "#filter_panel" ).accordion({
-    collapsible: true,
-    "heightStyle" : "content"
-  });
-
-  $( "#hor_filter" ).selectmenu();
-
-  $( "#vert_filter" ).selectmenu();
-});
-
+var compareCharacter = null;
+var primedToCompare = false;
+var comparing = false;
 
 //function for opening side menu
 function openMenu ()
@@ -54,26 +42,53 @@ function getCharacterInfo(cid){
   $.get( "ajax/load_character_info.php", {character_id : cid}, function( data ) {
     $( "#info_panel" ).html( data );
     openMenu();
+    $("#compare").click(function() {
+      //closeMenu();
+      //getCharacterCompare(1);
+      primedToCompare = true;
+    });
+  });
+}
+
+//function that pulls character info from db
+function getCharacterCompare(cid){
+  $.get( "ajax/load_character_comparison.php", {character_id : $(previousCharacter).attr('cid'), compare_id: cid}, function( data ) {
+    $( "#info_panel" ).html( data );
+    openMenu();
+    $("#exit").click(function() {
+      closeMenu();
+      getCharacterInfo($(previousCharacter).attr('cid'));
+      comparing = false;
+      primedToCompare = false;
+      deselectCharacter(compareCharacter);
+      compareCharacter = null;
+    });
   });
 }
 
 
-
-//function that highlights and unhighlights character circles
+//function that highlights character circles
 function selectCharacter(circle){
-  if(previousCharacter != null && previousCharacter !== circle){
-    $(previousCharacter).animate(
-      {'background-color' : '#252e60'},
-      "fast"
-    );
-  }
+  // if(previousCharacter != null && previousCharacter !== circle){
+  //   $(previousCharacter).animate(
+  //     {'background-color' : '#252e60'},
+  //     "fast"
+  //   );
+  // }
   $(circle).animate(
     {'background-color' : '#339b19'},
     "slow"
   );
 }
+//function that unhighlights character circles
+function deselectCharacter(circle){
+    $(circle).animate(
+      {'background-color' : '#252e60'},
+      "fast"
+    );
+}
 
-function unselectAll(){
+function deselectAll(){
   if(previousCharacter != null){
     $(previousCharacter).animate(
       {'background-color' : '#252e60'},
@@ -81,6 +96,7 @@ function unselectAll(){
     );
   }
   previousCharacter = null;
+  compareCharacter = null;
 }
 
 
@@ -147,7 +163,8 @@ function sortCharactersNum(dir, property){
   characterNameArray.sort(function(a, b){return a-b});
 
   for(var i = 0; i < characterCircleArray.length; i++){
-    var pos = (100/characterCircleArray.length) * characterNameArray.indexOf($(characterCircleArray[i]).attr(property));
+    var pos = (100/characterCircleArray.length) *
+    characterNameArray.indexOf($(characterCircleArray[i]).attr(property));
     console.log(pos);
     if(direction == 'hor'){
       $(characterCircleArray[i]).animate(
@@ -165,9 +182,9 @@ function sortCharactersNum(dir, property){
 }
 
 
-
-
-
+////////////////////////////////////////////////////////////////////////////////
+//INITIALIZATION STUFFS ////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 //on ready events bind event listeners
 $( document ).ready(function() {
@@ -181,6 +198,7 @@ $( "#vert_filter" ).on( "selectmenuchange", function( event, ui ) {
     sortCharactersNum("ver",value);
   }
 } );
+
 $( "#hor_filter" ).on( "selectmenuchange", function( event, ui ) {
   var value = $('option:selected', this).attr('val');
   if(value === "cname"){
@@ -191,14 +209,41 @@ $( "#hor_filter" ).on( "selectmenuchange", function( event, ui ) {
 } );
 });
 
+
+
 function bindCircleListeners(){
   //event listener for character circles
-  $(".character_circle").bind ( "click", function ( event ) // We're binding the effect to the click event on any menu_button container.
+  $(".character_circle").bind ( "click", function ( event )
   {
-    getCharacterInfo($(this).attr("cid"));
-    selectCharacter(this);
-    previousCharacter = this;
-
+    if(!primedToCompare){
+      getCharacterInfo($(this).attr("cid"));
+      selectCharacter(this);
+      deselectCharacter(previousCharacter);
+      previousCharacter = this;
+    }
+    else{
+      if(!comparing){
+        comparing = true;
+        closeMenu();
+      }
+      deselectCharacter(compareCharacter);
+      selectCharacter(this);
+      compareCharacter = this;
+      getCharacterCompare($(this).attr('cid'));
+    }
     //alert($(this).attr("cid"));
   });
 }
+
+
+//function for the collapsible filter menu
+$(function() {
+  $( "#filter_panel" ).accordion({
+    collapsible: true,
+    "heightStyle" : "content"
+  });
+
+  $( "#hor_filter" ).selectmenu();
+
+  $( "#vert_filter" ).selectmenu();
+});
