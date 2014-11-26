@@ -275,4 +275,8 @@ $(function() {
   $( "#hor_filter" ).selectmenu();
 
   $( "#vert_filter" ).selectmenu();
+
+
+  $( "#input_filters_basic" ).buttonset();
+  $( "#input_filters_intermediate" ).buttonset();
 });
