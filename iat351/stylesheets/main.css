@@ -37,8 +37,8 @@ html, body {
 
 #info_panel h3 {
   padding:0;
-  margin:0;
-
+  margin:10px 0 10px 0;
+  text-align: center;
 }
 
 #filter_panel{
@@ -58,6 +58,18 @@ html, body {
 	background: none !important;
 	border: none !important;
 	background-color: #2F2F2F !important;
+}
+
+.ui-menu.ui-widget-content {
+  background: none !important;
+  border: none !important;
+  background-color: black !important;
+}
+
+.ui-menu-item.ui-state-focus {
+  background: none !important;
+  border: 1px solid #2F2F2F !important;
+  background-color: #2F2F2F !important;
 }
 
 .ui-tabs-nav.ui-widget-header {
@@ -87,11 +99,24 @@ html, body {
 
 .tabs {
 	width: 85%;
-	margin-left: 20px;
+	margin-left: -42.5%;
+  left: 50%;
 }
 
-h1 {
+#info_panel h1 {
 	text-align: center;
+}
+
+button {
+  border: 1px solid #517EA5 !important;
+  background: none !important;
+  background-color: #517EA5 !important;
+  padding: 7px 10px;
+  border-bottom-right-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
+  border-top-right-radius: 5px !important;
+  border-top-left-radius: 5px !important;
+  color: white !important;
 }
 
 .ui-accordion-header {
