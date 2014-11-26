@@ -211,7 +211,27 @@ function sortCharactersNum(dir, property){
 
 }
 
+function hideCharacters(input){
+  $('.character_circle').each(function(i, obj) {
+    var i = input;
+    var numInputs = $(obj).attr(i);
 
+    if(numInputs > 0){
+      $(this).hide(400);
+    }
+  });
+}
+function showCharacters(input){
+  $('.character_circle').each(function(i, obj) {
+    var i = input;
+    var numInputs = $(obj).attr(i);
+
+    if(numInputs > 0){
+      $(this).show(400);
+    }
+  });
+}
+function bloop(){}
 ////////////////////////////////////////////////////////////////////////////////
 //INITIALIZATION STUFFS ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -237,6 +257,17 @@ $( "#hor_filter" ).on( "selectmenuchange", function( event, ui ) {
     sortCharactersNum("hor",value);
   }
 } );
+
+$(".input_box").change(function() {
+  if(this.checked) {
+    var val = $(this).attr('val');
+    hideCharacters(val);
+  }else{
+    var val = $(this).attr('val');
+    showCharacters(val);
+  }
+});
+
 });
 
 
@@ -261,7 +292,6 @@ function bindCircleListeners(){
       compareCharacter = this;
       getCharacterCompare($(this).attr('cid'));
     }
-    //alert($(this).attr("cid"));
   });
 }
 
