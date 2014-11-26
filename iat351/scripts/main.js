@@ -3,10 +3,56 @@ var previousCharacter = null;
 var compareCharacter = null;
 var primedToCompare = false;
 var comparing = false;
+var selectColor = '#339b19';
+var deselectColor = '#2F2F2F';
+var characterArray = [];
+
+
+
+function sortSimilar(){
+
+  var attack = $(previousCharacter).attr("attack"),
+   guard = $(previousCharacter).attr("guard"),
+   speed = $(previousCharacter).attr("speed"),
+   utility = $(previousCharacter).attr("utility"),
+   playStyle = $(previousCharacter).attr("play_style");
+
+   var characterArray= [],
+   sortArray = [];
+
+  $('.character_circle').each(function(i, obj) {
+    characterArray.push(obj);
+    var sCon = 1,
+    tempAttack = $(obj).attr("attack"),
+    tempGuard = $(obj).attr("guard"),
+    tempSpeed  = $(obj).attr("speed"),
+    tempUtility = $(obj).attr("utility"),
+    tempPlaystyle = $(obj).attr("play_style"),
+    tempName = $(obj).attr("cname")
+    ;
+    //( | (V1 - V2) | / ((V1 + V2)/2) ) * 100
+    sCon -= 0.15 * (Math.abs(attack - tempAttack)/((attack+tempAttack)/2));
+    sCon -= 0.15 * (Math.abs(guard - tempGuard)/((guard+tempGuard)/2));
+    sCon -= 0.15 * (Math.abs(speed - tempSpeed)/((speed+tempSpeed)/2));
+    sCon -= 0.15 * (Math.abs(utility - tempUtility)/((utility+tempUtility)/2));
+    if(playStyle !== tempPlaystyle){
+      sCon -= 0.4;
+    }
+    sortArray.push(sCon);
+  });
+  console.log(characterArray);
+
+  for(var i = 0; i < characterArray.length; i++){
+    var pos = 100 - (100 * sortArray[i]);
+    $(characterArray[i]).animate(
+      {'top' : pos+'%'},
+      'slow'
+    );
+  }
+}
 
 //function for opening side menu
-function openMenu ()
-{
+function openMenu (){
 
   if(!infoPanelOpen){
   infoPanelOpen = true;
@@ -22,8 +68,7 @@ function openMenu ()
 }
 
 //function for opening side menu
-function closeMenu ()
-{
+function closeMenu (){
   if(infoPanelOpen){
     infoPanelOpen = false;
     $("#info_panel").animate (
@@ -43,9 +88,10 @@ function getCharacterInfo(cid){
     $( "#info_panel" ).html( data );
     openMenu();
     $("#compare").click(function() {
-      //closeMenu();
-      //getCharacterCompare(1);
       primedToCompare = true;
+    });
+    $("#similar").click(function() {
+      sortSimilar();
     });
   });
 }
@@ -70,14 +116,15 @@ function getCharacterCompare(cid){
 //function that highlights character circles
 function selectCharacter(circle){
   $(circle).animate(
-    {'background-color' : '#339b19'},
+    {'background-color' : selectColor},
     "slow"
   );
 }
+
 //function that unhighlights character circles
 function deselectCharacter(circle){
     $(circle).animate(
-      {'background-color' : '#252e60'},
+      {'background-color' : deselectColor},
       "fast"
     );
 }
@@ -91,17 +138,6 @@ function deselectAll(){
   }
   previousCharacter = null;
   compareCharacter = null;
-}
-
-
-
-
-
-function createCharacterCircles(){
-  $.get( "ajax/create_character_circles.php", function( data ) {
-    $( "#character_pane" ).html( data );
-    bindCircleListeners();
-  });
 }
 
 function sortCharacters(dir, property){
@@ -228,7 +264,6 @@ function bindCircleListeners(){
     //alert($(this).attr("cid"));
   });
 }
-
 
 //function for the collapsible filter menu
 $(function() {
