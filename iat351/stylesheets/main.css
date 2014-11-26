@@ -126,7 +126,9 @@ overflow:visible;
 }
 .filter_section_wrapper{
   font-size: 10px;
-
+  display:inline;
+  float:left;
+  margin-left:20px;
 }
 .filter_section_wrapper h2{
   padding:0;
