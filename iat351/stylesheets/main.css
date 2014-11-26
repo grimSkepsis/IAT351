@@ -11,8 +11,8 @@ html, body {
 }
 
 #header-text {
-	padding-top: 63px;
-	padding-left: 10px;
+	padding-top: 2%;
+	padding-left: 1%;
 	color: white;
 	font-size: 22px;
 }
@@ -112,6 +112,7 @@ button {
   background: none !important;
   background-color: #517EA5 !important;
   padding: 7px 10px;
+  margin-top: 5%;
   border-bottom-right-radius: 5px !important;
   border-bottom-left-radius: 5px !important;
   border-top-right-radius: 5px !important;
@@ -138,10 +139,6 @@ button {
 .ui-corner-bottom {
 	border-bottom-right-radius: 0px !important;
 	border-bottom-left-radius: 0px !important;
-}
-
-center {
-	margin-top: 20px;
 }
 
 #content_wrapper{
