@@ -5,22 +5,30 @@ html, body {
 }
 
 #header{
-  background-color: #14126a;
+  background-color: #2F2F2F;
   height:10%;
   width:100%;
+}
+
+#header-text {
+	padding-top: 63px;
+	padding-left: 10px;
+	color: white;
+	font-size: 22px;
 }
 
 #character_pane{
   position:relative;
   float:left;
-  background-color:#98dd6e;
+  background-color: #517EA5;
   width:100%;
   height:90%;
 }
 
 #info_panel{
   float:right;
-  background-color:#b95c40;
+  background-color: #1F303F;
+  color: white;
   width:0%;
   height:90%;
   overflow:hidden;
@@ -38,6 +46,77 @@ html, body {
   margin:0;
   background-color:#a040bb;
   width:100%;
+}
+
+.ui-accordion-content {
+	background: none !important;
+	border: none !important;
+	background-color: #1F303F !important;
+}
+
+.ui-tabs.ui-widget-content {
+	background: none !important;
+	border: none !important;
+	background-color: #2F2F2F !important;
+}
+
+.ui-tabs-nav.ui-widget-header {
+	background: none !important;
+	border: none !important;
+	background-color: #2F2F2F !important;
+}
+
+.ui-state-default {
+	background: none !important;
+	border: none !important;
+	background-color: #517EA5 !important;
+}
+
+.ui-state-active {
+	background: none !important;
+	border: none !important;
+	background-color: #2F2F2F !important;
+	outline: none;
+}
+
+.ui-tabs-anchor:focus {
+	outline-style:none;
+	box-shadow:none;
+	border-color:transparent;
+}
+
+.tabs {
+	width: 85%;
+	margin-left: 20px;
+}
+
+h1 {
+	text-align: center;
+}
+
+.ui-accordion-header {
+	margin: 0px !important;
+	border: 1px solid black !important;
+	background: none !important;
+	background-color: black !important;
+	border-bottom-right-radius: 0px !important;
+	border-bottom-left-radius: 0px !important;
+	border-top-right-radius: 0px !important;
+	border-top-left-radius: 0px !important;
+}
+
+.ui-corner-top {
+	border-top-right-radius: 0px !important;
+	border-top-left-radius: 0px !important;
+}
+
+.ui-corner-bottom {
+	border-bottom-right-radius: 0px !important;
+	border-bottom-left-radius: 0px !important;
+}
+
+center {
+	margin-top: 20px;
 }
 
 #content_wrapper{
@@ -60,8 +139,9 @@ overflow:visible;
   height: 50px;
   border-radius: 50%;
   behavior: url(PIE.htc); /* remove if you don't care about IE8 */
-  background-color:#252e60;
+  background-color: #2F2F2F;
   position:absolute;
+  cursor: pointer;
 }
 
 .character_circle img {
