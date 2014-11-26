@@ -69,12 +69,6 @@ function getCharacterCompare(cid){
 
 //function that highlights character circles
 function selectCharacter(circle){
-  // if(previousCharacter != null && previousCharacter !== circle){
-  //   $(previousCharacter).animate(
-  //     {'background-color' : '#252e60'},
-  //     "fast"
-  //   );
-  // }
   $(circle).animate(
     {'background-color' : '#339b19'},
     "slow"
