@@ -123,7 +123,10 @@ button {
   background: none !important;
   background-color: #517EA5 !important;
   padding: 7px 10px;
+<<<<<<< HEAD
   margin-top: 5%;
+=======
+>>>>>>> master
   border-bottom-right-radius: 5px !important;
   border-bottom-left-radius: 5px !important;
   border-top-right-radius: 5px !important;
@@ -154,7 +157,10 @@ button {
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 .filter_section_wrapper{
   font-size: 10px;
   display:inline;
