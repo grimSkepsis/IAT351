@@ -5,7 +5,7 @@
   WHERE character_registry.id = character_stats.character_id";
   $results = $db->query($query);
 while($info = $results->fetch_assoc()){
-    echo '<div class = "character_circle" cid = "'.$info['character_id'].'"
+    echo '<div title="'.$info['character_name'].'" class = "character_circle" cid = "'.$info['character_id'].'"
                                           cname = "'.$info['character_name'].'"
                                           tier = "'.$info['tier_rank'].'"
                                           difficulty = "'.$info['difficulty'].'"

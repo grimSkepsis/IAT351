@@ -1,7 +1,9 @@
 
+
 html, body {
   margin:0;
   padding:0;
+  background-color: #517EA5;
 }
 
 #header{
@@ -22,7 +24,7 @@ html, body {
   float:left;
   background-color: #517EA5;
   width:100%;
-  height:90%;
+  height:100%;
 }
 
 #info_panel{
@@ -30,7 +32,7 @@ html, body {
   background-color: #1F303F;
   color: white;
   width:0%;
-  height:90%;
+  height:100%;
   overflow:hidden;
 
 }
@@ -46,6 +48,15 @@ html, body {
   margin:0;
   background-color:#a040bb;
   width:100%;
+}
+
+#content_wrapper{
+    background-color: #6ea752;
+    overflow:scroll;
+    height:90%
+    ::-webkit-scrollbar {
+      display: none;
+    }
 }
 
 .ui-accordion-content {
@@ -144,11 +155,7 @@ center {
 	margin-top: 20px;
 }
 
-#content_wrapper{
-width:100%;
-overflow:visible;
 
-}
 .filter_section_wrapper{
   font-size: 10px;
   display:inline;
