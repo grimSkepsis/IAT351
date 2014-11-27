@@ -57,7 +57,7 @@ function openMenu (){
   if(!infoPanelOpen){
   infoPanelOpen = true;
   $("#info_panel").animate (
-    { 'width' : '20%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
+    { 'left' : '80%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
     1000 // The next parameter is the duration of the animation.
   );
   $("#character_pane").animate (
@@ -68,16 +68,16 @@ function openMenu (){
 }
 
 //function for opening side menu
-function closeMenu (transition){
+function closeMenu (){
   if(infoPanelOpen){
     infoPanelOpen = false;
     $("#info_panel").animate (
-      { 'width' : '0%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
-      1000, "linear" // The next parameter is the duration of the animation.
+      { 'left' : '100%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
+      1000// The next parameter is the duration of the animation.
     );
     $("#character_pane").animate (
       { 'width' : '100%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
-      1000, "linear", transition // The next parameter is the duration of the animation.
+      1000// The next parameter is the duration of the animation.
     );
   }
 }
