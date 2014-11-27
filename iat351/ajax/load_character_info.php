@@ -1,11 +1,25 @@
 <?php
   $backend_enabled = true;
   if($backend_enabled){
-  $cid = 1;
   $db = new mysqli("localhost","fight_game_user","pass","character_db");
-  $query = "select * from character_registry where id = '".$_GET['character_id']."'";
-  $results = $db->query($query);
-  $info = $results->fetch_assoc();
+  $query = "SELECT character_stats.attack, character_stats.health, character_stats.guard_gauge,
+              character_stats.speed, character_stats.utility, character_stats.difficulty,
+              character_stats.tier_rank,
+              character_registry.character_name, character_lore.body, character_lore.header, character_lore.quote
+              FROM character_registry, character_lore, character_stats
+              WHERE character_registry.id = ? AND character_lore.character_id = character_registry.id
+              AND character_stats.character_id = character_registry.id";
+
+  $stmt = $db->prepare($query);
+  $cid = $_GET['character_id'] ;
+
+            /* Bind parameters. Types: s = string, i = integer, d = double,  b = blob */
+  $stmt->bind_param('i', $cid);
+  $stmt->execute();
+
+  $results = $stmt->get_result();
+  $info = $results->fetch_array(MYSQLI_ASSOC);
+
   echo("<h1>".stripslashes($info['character_name'])."</h1>");
   $results->free();
   $db->close();
@@ -14,8 +28,8 @@
 }
 
 ?>
-
-<div class="tabs">
+<?php
+echo '<div class="tabs" style = "height:70%">
   <ul>
     <li><a href="#tabs-1">Moves</a></li>
     <li><a href="#tabs-2">Combos</a></li>
@@ -26,15 +40,31 @@
   </div>
   <div id="tabs-2">
   </div>
-  <div id="tabs-3">
+  <div class = "content_tab" id="tabs-3">
+  <h3>Character Stats</h3>
+  <p>Health: '.$info['health'].'</p>
+  <p>Attack: '.$info['attack'].'</p>
+  <p>Speed: '.$info['speed'].'</p>
+  <p>Utility: '.$info['utility'].'</p>
+  <p>Guard Gauge: '.$info['guard_gauge'].'</p>
+  <h3>Misc. Stats</h3>
+  <p>Difficulty: '.$info['difficulty'].'</p>
+  <p>Tier Ranking: '.$info['tier_rank'].'</p>
   </div>
-  <div id="tabs-4">
+  <div class = "content_tab" id="tabs-4">
+
+      <h3>'.$info['header'].'</h3>
+      <h4>'.$info['quote'].'</h4>
+      <p>'.$info['body'].'</p>
+
   </div>
 </div>
 <center>
   <button id="similar">Similar</button>
   <button id="compare">Compare</button>
-</center>
+</center>';
+
+?>
 <script>
   $(function() {
     $( ".tabs" ).tabs();

@@ -1,7 +1,9 @@
 
+
 html, body {
   margin:0;
   padding:0;
+  background-color: #517EA5;
 }
 
 #header{
@@ -22,7 +24,7 @@ html, body {
   float:left;
   background-color: #517EA5;
   width:100%;
-  height:90%;
+  height:100%;
 }
 
 #info_panel{
@@ -30,15 +32,15 @@ html, body {
   background-color: #1F303F;
   color: white;
   width:0%;
-  height:90%;
+  height:100%;
   overflow:hidden;
 
 }
 
 #info_panel h3 {
   padding:0;
-  margin:0;
-
+  margin:10px 0 10px 0;
+  text-align: center;
 }
 
 #filter_panel{
@@ -46,6 +48,15 @@ html, body {
   margin:0;
   background-color:#a040bb;
   width:100%;
+}
+
+#content_wrapper{
+    background-color: #6ea752;
+    overflow:scroll;
+    height:90%
+    ::-webkit-scrollbar {
+      display: none;
+    }
 }
 
 .ui-accordion-content {
@@ -58,6 +69,18 @@ html, body {
 	background: none !important;
 	border: none !important;
 	background-color: #2F2F2F !important;
+}
+
+.ui-menu.ui-widget-content {
+  background: none !important;
+  border: none !important;
+  background-color: black !important;
+}
+
+.ui-menu-item.ui-state-focus {
+  background: none !important;
+  border: 1px solid #2F2F2F !important;
+  background-color: #2F2F2F !important;
 }
 
 .ui-tabs-nav.ui-widget-header {
@@ -87,11 +110,24 @@ html, body {
 
 .tabs {
 	width: 85%;
-	margin-left: 20px;
+	margin-left: -42.5%;
+  left: 50%;
 }
 
-h1 {
+#info_panel h1 {
 	text-align: center;
+}
+
+button {
+  border: 1px solid #517EA5 !important;
+  background: none !important;
+  background-color: #517EA5 !important;
+  padding: 7px 10px;
+  border-bottom-right-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
+  border-top-right-radius: 5px !important;
+  border-top-left-radius: 5px !important;
+  color: white !important;
 }
 
 .ui-accordion-header {
@@ -119,11 +155,7 @@ center {
 	margin-top: 20px;
 }
 
-#content_wrapper{
-width:100%;
-overflow:visible;
 
-}
 .filter_section_wrapper{
   font-size: 10px;
   display:inline;
@@ -158,6 +190,7 @@ overflow:visible;
 }
 .tabs {
   height:40%;
+
 }
 .tabs p{
   font-size:12px;
