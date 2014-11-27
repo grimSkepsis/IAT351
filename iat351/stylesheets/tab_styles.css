@@ -1,0 +1,16 @@
+.content_tab{
+  font-size: 12px;
+  overflow:auto;
+  height: 80%;
+}
+
+.content_tab h3{
+  font-size: 1em;
+  text-align:center;
+}
+
+.content_tab h4{
+  font-size: .75em;
+  font-style: italic;
+  text-align:center;
+}
