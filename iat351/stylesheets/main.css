@@ -1,7 +1,10 @@
 
+
 html, body {
   margin:0;
   padding:0;
+  background-color: #517EA5;
+  overflow:hidden;
 }
 
 #header{
@@ -11,28 +14,34 @@ html, body {
 }
 
 #header-text {
+<<<<<<< HEAD
 	padding-top: 2%;
 	padding-left: 1%;
+=======
+  padding-top: 2%;
+  padding-left: 1%;
+>>>>>>> origin/master
 	color: white;
 	font-size: 22px;
 }
 
 #character_pane{
-  position:relative;
+  position:absolute;
   float:left;
   background-color: #517EA5;
   width:100%;
-  height:90%;
+  height:100%;
 }
 
 #info_panel{
   float:right;
   background-color: #1F303F;
   color: white;
-  width:0%;
-  height:90%;
+  width:20%;
+  height:100%;
+  left:100%;
   overflow:hidden;
-
+  position:absolute;
 }
 
 #info_panel h3 {
@@ -42,10 +51,17 @@ html, body {
 }
 
 #filter_panel{
+
   padding:0;
   margin:0;
   background-color:#a040bb;
   width:100%;
+}
+
+#content_wrapper{
+    background-color: #6ea752;
+    height:90%
+    position:relative;
 }
 
 .ui-accordion-content {
@@ -141,11 +157,14 @@ button {
 	border-bottom-left-radius: 0px !important;
 }
 
+<<<<<<< HEAD
 #content_wrapper{
 width:100%;
 overflow:visible;
 
 }
+=======
+>>>>>>> origin/master
 .filter_section_wrapper{
   font-size: 10px;
   display:inline;
@@ -155,6 +174,7 @@ overflow:visible;
 .filter_section_wrapper h2{
   padding:0;
   margin:0;
+  font-size:.75em;
 
 }
 .character_circle{
@@ -180,6 +200,7 @@ overflow:visible;
 }
 .tabs {
   height:40%;
+
 }
 .tabs p{
   font-size:12px;

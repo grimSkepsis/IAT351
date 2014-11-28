@@ -6,7 +6,7 @@ var comparing = false;
 var selectColor = '#339b19';
 var deselectColor = '#2F2F2F';
 var characterArray = [];
-
+var hiddenInputs = [];
 
 
 function sortSimilar(){
@@ -57,12 +57,12 @@ function openMenu (){
   if(!infoPanelOpen){
   infoPanelOpen = true;
   $("#info_panel").animate (
-    { 'width' : '20%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
-    "slow" // The next parameter is the duration of the animation.
+    { 'left' : '80%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
+    1000 // The next parameter is the duration of the animation.
   );
   $("#character_pane").animate (
     { 'width' : '80%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
-    "slow" // The next parameter is the duration of the animation.
+    1000 // The next parameter is the duration of the animation.
   );
   }
 }
@@ -72,15 +72,17 @@ function closeMenu (){
   if(infoPanelOpen){
     infoPanelOpen = false;
     $("#info_panel").animate (
-      { 'width' : '0%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
-      1000 // The next parameter is the duration of the animation.
+      { 'left' : '100%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
+      1000// The next parameter is the duration of the animation.
     );
     $("#character_pane").animate (
       { 'width' : '100%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
-      1000 // The next parameter is the duration of the animation.
+      1000// The next parameter is the duration of the animation.
     );
   }
 }
+
+
 
 //function that pulls character info from db
 function getCharacterInfo(cid){
@@ -176,6 +178,7 @@ function createCharacterCircles(){
     bindCircleListeners();
     sortCharacters('ver', $('option:selected',  $('#vert_filter')).attr('val'));
     sortCharacters('hor', $('option:selected', $('#hor_filter')).attr('val'));
+    $( document ).tooltip({ position: { my: "left+5 center", at: "right center" } });
   });
 
 }
@@ -231,7 +234,29 @@ function showCharacters(input){
     }
   });
 }
-function bloop(){}
+
+function updateHiddenCharacters(){
+  var hiddenCharacters = [];
+  var shownCharacters = [];
+  $('.character_circle').each(function(i, obj) {
+      shownCharacters.push(obj);
+      for(var j =0; j< hiddenInputs.length; j++){
+        var numInputs = $(obj).attr(hiddenInputs[j]);
+
+        if(numInputs > 0){
+          shownCharacters.splice(shownCharacters.indexOf(obj), 1);
+          hiddenCharacters.push(obj);
+          break;
+        }
+      }
+  });
+  for(var k = 0; k < shownCharacters.length; k++){
+    $(shownCharacters[k]).show(400);
+  }
+  for(var k = 0; k < hiddenCharacters.length; k++){
+    $(hiddenCharacters[k]).hide(400);
+  }
+}
 ////////////////////////////////////////////////////////////////////////////////
 //INITIALIZATION STUFFS ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -261,10 +286,15 @@ $( "#hor_filter" ).on( "selectmenuchange", function( event, ui ) {
 $(".input_box").change(function() {
   if(this.checked) {
     var val = $(this).attr('val');
-    hideCharacters(val);
+    hiddenInputs.push(val);
+    //hideCharacters(val);
+    updateHiddenCharacters();
   }else{
     var val = $(this).attr('val');
-    showCharacters(val);
+    var index = hiddenInputs.indexOf(val);
+    hiddenInputs.splice(index, 1);
+    //showCharacters(val);
+    updateHiddenCharacters();
   }
 });
 
@@ -277,10 +307,16 @@ function bindCircleListeners(){
   $(".character_circle").bind ( "click", function ( event )
   {
     if(!primedToCompare){
-      getCharacterInfo($(this).attr("cid"));
-      selectCharacter(this);
-      deselectCharacter(previousCharacter);
-      previousCharacter = this;
+      if(previousCharacter !== this){
+        getCharacterInfo($(this).attr("cid"));
+        selectCharacter(this);
+        deselectCharacter(previousCharacter);
+        previousCharacter = this;
+      }else{
+        deselectCharacter(this);
+        previousCharacter = null;
+        closeMenu();
+      }
     }
     else{
       if(!comparing){
