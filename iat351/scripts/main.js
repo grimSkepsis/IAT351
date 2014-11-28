@@ -83,7 +83,7 @@ function openMenu (){
     { 'left' : '80%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
     1000 // The next parameter is the duration of the animation.
   );
-  $("#character_pane").animate (
+  $("#display_pane").animate (
     { 'width' : '80%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
     1000 // The next parameter is the duration of the animation.
   );
@@ -98,7 +98,7 @@ function closeMenu (){
       { 'left' : '100%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
       1000// The next parameter is the duration of the animation.
     );
-    $("#character_pane").animate (
+    $("#display_pane").animate (
       { 'width' : '100%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
       1000// The next parameter is the duration of the animation.
     );
