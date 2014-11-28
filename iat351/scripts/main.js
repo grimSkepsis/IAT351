@@ -5,10 +5,33 @@ var primedToCompare = false;
 var comparing = false;
 var selectColor = '#339b19';
 var deselectColor = '#2F2F2F';
+var compareColor = '#ffc800';
+
 var characterArray = [];
 var hiddenInputs = [];
 
+function highlightForCompare(){
+  $('.character_circle').each(function(i, obj) {
+    if(obj !== previousCharacter){
+      $(obj).animate(
+        {'background-color' : compareColor},
+        'slow'
+      );
+    }
+  });
+}
 
+function unHighlightForCompare(){
+  $('.character_circle').each(function(i, obj) {
+    if(obj !== previousCharacter){
+      $(obj).animate(
+        {'background-color' : deselectColor},
+        'slow'
+      );
+    }
+  });
+}
+//sorts characters based on their similarity to  a given character, needs weight balancing
 function sortSimilar(){
 
   var attack = $(previousCharacter).attr("attack"),
@@ -60,7 +83,7 @@ function openMenu (){
     { 'left' : '80%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
     1000 // The next parameter is the duration of the animation.
   );
-  $("#character_pane").animate (
+  $("#display_pane").animate (
     { 'width' : '80%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
     1000 // The next parameter is the duration of the animation.
   );
@@ -75,7 +98,7 @@ function closeMenu (){
       { 'left' : '100%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
       1000// The next parameter is the duration of the animation.
     );
-    $("#character_pane").animate (
+    $("#display_pane").animate (
       { 'width' : '100%' }, // The first parameter is a list of CSS attributes that we want to change during the animation.
       1000// The next parameter is the duration of the animation.
     );
@@ -90,7 +113,13 @@ function getCharacterInfo(cid){
     $( "#info_panel" ).html( data );
     openMenu();
     $("#compare").click(function() {
-      primedToCompare = true;
+      if(!primedToCompare){
+        primedToCompare = true;
+        highlightForCompare();
+      }else{
+        primedToCompare = false;
+        unHighlightForCompare();
+      }
     });
     $("#similar").click(function() {
       sortSimilar();
@@ -110,6 +139,7 @@ function getCharacterCompare(cid){
       primedToCompare = false;
       deselectCharacter(compareCharacter);
       compareCharacter = null;
+      unHighlightForCompare();
     });
   });
 }
@@ -125,12 +155,18 @@ function selectCharacter(circle){
 
 //function that unhighlights character circles
 function deselectCharacter(circle){
+  var color;
+  if(primedToCompare){
+    color = compareColor;
+  }else{
+    color = deselectColor
+  }
     $(circle).animate(
-      {'background-color' : deselectColor},
+      {'background-color' : color},
       "fast"
     );
 }
-
+//unselects all characters
 function deselectAll(){
   if(previousCharacter != null){
     $(previousCharacter).animate(
@@ -141,7 +177,7 @@ function deselectAll(){
   previousCharacter = null;
   compareCharacter = null;
 }
-
+//sorts characters based on a textual property
 function sortCharacters(dir, property){
   var direction = dir;
 
@@ -171,7 +207,7 @@ function sortCharacters(dir, property){
   }
 
 }
-
+//creates the character circles
 function createCharacterCircles(){
   $.get( "ajax/create_character_circles.php", function( data ) {
     $( "#character_pane" ).html( data );
@@ -182,7 +218,7 @@ function createCharacterCircles(){
   });
 
 }
-
+//sorts characters based on a numeric property
 function sortCharactersNum(dir, property){
   var direction = dir;
 
@@ -213,28 +249,7 @@ function sortCharactersNum(dir, property){
   }
 
 }
-
-function hideCharacters(input){
-  $('.character_circle').each(function(i, obj) {
-    var i = input;
-    var numInputs = $(obj).attr(i);
-
-    if(numInputs > 0){
-      $(this).hide(400);
-    }
-  });
-}
-function showCharacters(input){
-  $('.character_circle').each(function(i, obj) {
-    var i = input;
-    var numInputs = $(obj).attr(i);
-
-    if(numInputs > 0){
-      $(this).show(400);
-    }
-  });
-}
-
+//updates which characters are shown and which are hidden
 function updateHiddenCharacters(){
   var hiddenCharacters = [];
   var shownCharacters = [];
