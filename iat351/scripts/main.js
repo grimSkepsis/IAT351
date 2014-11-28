@@ -123,6 +123,7 @@ function getCharacterInfo(cid){
     });
     $("#similar").click(function() {
       sortSimilar();
+      $(".ver_axis_label").html("More to less similar to : " + $(previousCharacter).attr('cname'));
     });
   });
 }
@@ -282,6 +283,10 @@ $( document ).ready(function() {
 
 $( "#vert_filter" ).on( "selectmenuchange", function( event, ui ) {
   var value = $('option:selected', this).attr('val');
+
+  var axis = $('option:selected', this).attr('axis');
+  $(".ver_axis_label").html(axis);
+
   if(value === "cname"){
     sortCharacters("ver",value);
   }else{
@@ -291,6 +296,10 @@ $( "#vert_filter" ).on( "selectmenuchange", function( event, ui ) {
 
 $( "#hor_filter" ).on( "selectmenuchange", function( event, ui ) {
   var value = $('option:selected', this).attr('val');
+
+  var axis = $('option:selected', this).attr('axis');
+  $(".hor_axis_label").html(axis);
+
   if(value === "cname"){
     sortCharacters("hor",value);
   }else{
@@ -342,6 +351,7 @@ function bindCircleListeners(){
       selectCharacter(this);
       compareCharacter = this;
       getCharacterCompare($(this).attr('cid'));
+
     }
   });
 }

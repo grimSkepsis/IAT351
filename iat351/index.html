@@ -26,16 +26,16 @@
         <form action="#">
           <label for="vert_filter">Verticle Order</label><br>
           <select  name="vert_filter" id="vert_filter">
-            <option val = "cname"  selected="selected">Alphabetical</option>
-            <option val = "difficulty">Difficulty</option>
-            <option val = "tier">Tier</option>
+            <option axis = "A to Z" val = "cname"  selected="selected">Alphabetical</option>
+            <option axis = "High to low Difficulty" val = "difficulty">Difficulty</option>
+            <option axis = "High to Low Tier" val = "tier">Tier</option>
           </select><br><br>
 
           <label for="hor_filter">Horizontal Order</label><br>
           <select name="hor_filter" id="hor_filter">
-            <option val = "cname" selected="selected">Alphabetical</option>
-            <option val = "difficulty">Difficulty</option>
-            <option val = "tier">Tier</option>
+            <option axis = "A to Z" val = "cname" selected="selected">Alphabetical</option>
+            <option axis = "High to low Difficulty" val = "difficulty">Difficulty</option>
+            <option axis = "High to Low Tier" val = "tier">Tier</option>
           </select>
         </form>
 
@@ -69,8 +69,8 @@
       <div id = "display_pane">
 
         <div id = "text_pane">
-          <h3 class = "bottom_axis_label">A to Z</h3>
-          <h3 class = "left_axis_label">High to Low Tier</h3>
+          <h3 class = "hor_axis_label">A to Z</h3>
+          <h3 class = "ver_axis_label">A to Z</h3>
         </div>
         <div id = "character_pane"></div>
       </div>

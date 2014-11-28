@@ -41,7 +41,7 @@ html, body {
   display:absolute;
 }
 
-.bottom_axis_label{
+.hor_axis_label{
   padding:0;
   margin:0;
   text-align:center;
@@ -49,12 +49,12 @@ html, body {
   bottom:5%;
 }
 
-.left_axis_label{
-  transform: rotate(90deg);
+.ver_axis_label{
+
   position:absolute;
   top:50%;
-  left:-4%;
-
+  left:10px;
+  transform: rotate(90deg);
 }
 
 #info_panel{
@@ -187,12 +187,13 @@ button {
   float:left;
   margin-left:20px;
 }
+
 .filter_section_wrapper h2{
   padding:0;
   margin:0;
-  font-size:.75em;
-
+  font-size:1.5em;
 }
+
 .character_circle{
   margin: 5px;
   width: 50px;
