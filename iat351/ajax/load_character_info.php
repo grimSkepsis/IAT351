@@ -20,6 +20,27 @@
   $results = $stmt->get_result();
   $info = $results->fetch_array(MYSQLI_ASSOC);
 
+  $moveQuery = " SELECT *
+  FROM character_moves
+  WHERE character_id = ?
+  LIMIT 0 , 30";
+
+  $moveStmt = $db->prepare($moveQuery);
+  $moveStmt->bind_param('i',$cid);
+  $moveStmt->execute();
+  $moveResults = $moveStmt->get_result();
+
+  $moveTabString ='';
+  while($row = $moveResults->fetch_array(MYSQLI_ASSOC)){
+    $moveTabString.='<div><h2>'.$row['name'].'</h2>
+                    <img src = '.$row['img'].'>
+                    <p>Damage: '.$row['damage'].'</p>
+                    <p>Description:</p><p>'.$row['description'].'</p>
+                    <p style = "color:green;">Pros:</p><p style = "color:green;">'.$row['pros'].'</p>
+                    <p style = "color:red;">Cons:</p><p style = "color:red;">'.$row['cons'].'</p>
+                    </div><br>';
+  }
+
   echo("<h1>".stripslashes($info['character_name'])."</h1>");
   $results->free();
   $db->close();
@@ -36,7 +57,7 @@ echo '<div class="tabs" style = "height:70%">
     <li><a href="#tabs-3">Stats</a></li>
     <li><a href="#tabs-4">Lore</a></li>
   </ul>
-  <div id="tabs-1">
+  <div id="tabs-1" class = "content_tab">'.$moveTabString.'
   </div>
   <div id="tabs-2">
   </div>
