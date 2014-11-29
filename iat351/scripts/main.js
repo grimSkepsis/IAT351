@@ -33,8 +33,6 @@ function highlightForSimilar(circle){
 
 }
 
-
-
 function unHighlightForCompare(){
   $('.character_circle').each(function(i, obj) {
     if(obj !== previousCharacter){
@@ -45,6 +43,7 @@ function unHighlightForCompare(){
     }
   });
 }
+
 //sorts characters based on their similarity to  a given character, needs weight balancing
 function sortSimilar(){
 
@@ -119,8 +118,6 @@ function closeMenu (){
   }
 }
 
-
-
 //function that pulls character info from db
 function getCharacterInfo(cid){
   $.get( "ajax/load_character_info.php", {character_id : cid}, function( data ) {
@@ -171,7 +168,6 @@ function getCharacterCompare(cid){
   });
 }
 
-
 //function that highlights character circles
 function selectCharacter(circle){
   $(circle).animate(
@@ -193,6 +189,7 @@ function deselectCharacter(circle){
       "fast"
     );
 }
+
 //unselects all characters
 function deselectAll(){
   if(previousCharacter != null){
@@ -204,6 +201,7 @@ function deselectAll(){
   previousCharacter = null;
   compareCharacter = null;
 }
+
 //sorts characters based on a textual property
 function sortCharacters(dir, property){
   var direction = dir;
@@ -234,6 +232,7 @@ function sortCharacters(dir, property){
   }
 
 }
+
 //creates the character circles
 function createCharacterCircles(){
   $.get( "ajax/create_character_circles.php", function( data ) {
@@ -245,6 +244,7 @@ function createCharacterCircles(){
   });
 
 }
+
 //sorts characters based on a numeric property
 function sortCharactersNum(dir, property){
   var direction = dir;
@@ -276,6 +276,7 @@ function sortCharactersNum(dir, property){
   }
 
 }
+
 //updates which characters are shown and which are hidden
 function updateHiddenCharacters(){
   var hiddenCharacters = [];
@@ -299,6 +300,7 @@ function updateHiddenCharacters(){
     $(hiddenCharacters[k]).hide(400);
   }
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 //INITIALIZATION STUFFS ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
