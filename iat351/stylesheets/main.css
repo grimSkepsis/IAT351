@@ -41,7 +41,7 @@ html, body {
   display:absolute;
 }
 
-.bottom_axis_label{
+.hor_axis_label{
   padding:0;
   margin:0;
   text-align:center;
@@ -49,12 +49,16 @@ html, body {
   bottom:5%;
 }
 
-.left_axis_label{
-  transform: rotate(90deg);
+.ver_axis_label{
+
   position:absolute;
   top:50%;
-  left:-4%;
+  left:1%;
 
+  transform: rotate(90deg);
+  transform-origin:50%;
+  padding:0;
+  margin:0;
 }
 
 #info_panel{
@@ -74,6 +78,10 @@ html, body {
   text-align: center;
 }
 
+#info_panel h1 {
+  text-align: center;
+}
+
 #filter_panel{
 
   padding:0;
@@ -88,6 +96,26 @@ html, body {
     position:relative;
 }
 
+#dialog{
+  font-size:15px;
+  background-color: #1F303F;
+  color: white;
+  width:25%;
+  height:25%;
+}
+#dialog button{
+  font-size: .75em;
+
+}
+#dialog h3 {
+  padding:0;
+  margin:10px 0 10px 0;
+  text-align: center;
+}
+
+#dialog h1 {
+  text-align: left;
+}
 .ui-accordion-content {
 	background: none !important;
 	border: none !important;
@@ -143,9 +171,6 @@ html, body {
   left: 50%;
 }
 
-#info_panel h1 {
-	text-align: center;
-}
 
 button {
   border: 1px solid #517EA5 !important;
@@ -187,16 +212,17 @@ button {
   float:left;
   margin-left:20px;
 }
+
 .filter_section_wrapper h2{
   padding:0;
   margin:0;
-  font-size:.75em;
-
+  font-size:1.5em;
 }
+
 .character_circle{
   margin: 5px;
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
   behavior: url(PIE.htc); /* remove if you don't care about IE8 */
   background-color: #2F2F2F;
