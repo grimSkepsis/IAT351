@@ -78,6 +78,10 @@ html, body {
   text-align: center;
 }
 
+#info_panel h1 {
+  text-align: center;
+}
+
 #filter_panel{
 
   padding:0;
@@ -92,6 +96,26 @@ html, body {
     position:relative;
 }
 
+#dialog{
+  font-size:15px;
+  background-color: #1F303F;
+  color: white;
+  width:25%;
+  height:25%;
+}
+#dialog button{
+  font-size: .75em;
+
+}
+#dialog h3 {
+  padding:0;
+  margin:10px 0 10px 0;
+  text-align: center;
+}
+
+#dialog h1 {
+  text-align: left;
+}
 .ui-accordion-content {
 	background: none !important;
 	border: none !important;
@@ -147,9 +171,6 @@ html, body {
   left: 50%;
 }
 
-#info_panel h1 {
-	text-align: center;
-}
 
 button {
   border: 1px solid #517EA5 !important;

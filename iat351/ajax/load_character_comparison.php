@@ -66,7 +66,7 @@
 </div>
 
 <center>
-  <button id="exit">Exit</button>
+  <button id="exit">Stop Comparing</button>
 
 </center>
 <script>

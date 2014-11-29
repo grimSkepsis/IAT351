@@ -6,10 +6,11 @@ var comparing = false;
 var selectColor = '#339b19';
 var deselectColor = '#2F2F2F';
 var compareColor = '#ffc800';
-
+var sortingSimilar = false;
 var characterArray = [];
 var hiddenInputs = [];
-
+var charModal;
+var similarCharacter = null;
 function highlightForCompare(){
   $('.character_circle').each(function(i, obj) {
     if(obj !== previousCharacter){
@@ -20,6 +21,19 @@ function highlightForCompare(){
     }
   });
 }
+
+function highlightForSimilar(circle){
+
+
+      $(circle).animate(
+        {'background-color' : compareColor},
+        'slow'
+      );
+
+
+}
+
+
 
 function unHighlightForCompare(){
   $('.character_circle').each(function(i, obj) {
@@ -34,11 +48,11 @@ function unHighlightForCompare(){
 //sorts characters based on their similarity to  a given character, needs weight balancing
 function sortSimilar(){
 
-  var attack = $(previousCharacter).attr("attack"),
-   guard = $(previousCharacter).attr("guard"),
-   speed = $(previousCharacter).attr("speed"),
-   utility = $(previousCharacter).attr("utility"),
-   playStyle = $(previousCharacter).attr("play_style");
+  var attack = $(similarCharacter).attr("attack"),
+   guard = $(similarCharacter).attr("guard"),
+   speed = $(similarCharacter).attr("speed"),
+   utility = $(similarCharacter).attr("utility"),
+   playStyle = $(similarCharacter).attr("play_style");
 
    var characterArray= [],
    sortArray = [];
@@ -110,19 +124,26 @@ function closeMenu (){
 //function that pulls character info from db
 function getCharacterInfo(cid){
   $.get( "ajax/load_character_info.php", {character_id : cid}, function( data ) {
-    $( "#info_panel" ).html( data );
-    openMenu();
+    charModal.html( data );
+    openCharacterModal();
+    //openMenu();
     $("#compare").click(function() {
       if(!primedToCompare){
         primedToCompare = true;
         highlightForCompare();
+        charModal.dialog("close");
       }else{
         primedToCompare = false;
         unHighlightForCompare();
       }
     });
     $("#similar").click(function() {
+      similarCharacter = previousCharacter;
+      previousCharacter = null;
       sortSimilar();
+      highlightForSimilar(similarCharacter);
+      sortingSimilar = true;
+      charModal.dialog("close");
       $(".ver_axis_label").html("More to less similar to : " + $(previousCharacter).attr('cname'));
     });
   });
@@ -131,16 +152,20 @@ function getCharacterInfo(cid){
 //function that pulls character info from db
 function getCharacterCompare(cid){
   $.get( "ajax/load_character_comparison.php", {character_id : $(previousCharacter).attr('cid'), compare_id: cid}, function( data ) {
-    $( "#info_panel" ).html( data );
-    openMenu();
+    $( "#dialog" ).html( data );
+    //openMenu();
+    openCharacterModal();
     $("#exit").click(function() {
-      closeMenu();
-      getCharacterInfo($(previousCharacter).attr('cid'));
+      //closeMenu();
+      //getCharacterInfo($(previousCharacter).attr('cid'));
+      previousCharacter = null;
       comparing = false;
       primedToCompare = false;
       deselectCharacter(compareCharacter);
       compareCharacter = null;
       unHighlightForCompare();
+      charModal.dialog("close");
+
     });
   });
 }
@@ -288,7 +313,7 @@ $( "#vert_filter" ).on( "selectmenuchange", function( event, ui ) {
   var axis = $('option:selected', this).attr('axis');
   $(".ver_axis_label").html(axis);
   $( ".ver_axis_label" ).css( "left", "0%" );
-  
+
   if(value === "cname"){
     sortCharacters("ver",value);
   }else{
@@ -298,7 +323,6 @@ $( "#vert_filter" ).on( "selectmenuchange", function( event, ui ) {
 
 $( "#hor_filter" ).on( "selectmenuchange", function( event, ui ) {
   var value = $('option:selected', this).attr('val');
-
   var axis = $('option:selected', this).attr('axis');
   $(".hor_axis_label").html(axis);
 
@@ -323,7 +347,12 @@ $(".input_box").change(function() {
     updateHiddenCharacters();
   }
 });
-
+$('#dialog').on( "dialogclose", function( event, ui ) {
+  if(!primedToCompare && !sortingSimilar){
+    deselectCharacter(previousCharacter);
+    previousCharacter = null;
+  }
+});
 });
 
 
@@ -338,6 +367,7 @@ function bindCircleListeners(){
         selectCharacter(this);
         deselectCharacter(previousCharacter);
         previousCharacter = this;
+
       }else{
         deselectCharacter(this);
         previousCharacter = null;
@@ -358,6 +388,10 @@ function bindCircleListeners(){
   });
 }
 
+function openCharacterModal(){
+  charModal.dialog("open");
+}
+
 //function for the collapsible filter menu
 $(function() {
   $( "#filter_panel" ).accordion({
@@ -372,4 +406,11 @@ $(function() {
 
   $( "#input_filters_basic" ).buttonset();
   $( "#input_filters_intermediate" ).buttonset();
+  charModal = $( "#dialog" ).dialog({
+    autoOpen: false,
+    modal: true,
+    width: 800,
+    height: 600
+  });
+
 });
