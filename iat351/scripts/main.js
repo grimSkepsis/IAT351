@@ -138,13 +138,14 @@ function getCharacterInfo(cid){
       }
     });
     $("#similar").click(function() {
+      deselectCharacter(similarCharacter);
       similarCharacter = previousCharacter;
       previousCharacter = null;
       sortSimilar();
       highlightForSimilar(similarCharacter);
       sortingSimilar = true;
       charModal.dialog("close");
-      $(".ver_axis_label").html("More to less similar to : " + $(previousCharacter).attr('cname'));
+      $(".ver_axis_label").html("More to less similar to : " + $(similarCharacter).attr('cname'));
     });
   });
 }
@@ -309,7 +310,8 @@ $( document ).ready(function() {
   $( ".ver_axis_label" ).css( "left", "0%" );
 $( "#vert_filter" ).on( "selectmenuchange", function( event, ui ) {
   var value = $('option:selected', this).attr('val');
-
+  deselectCharacter(similarCharacter);
+  similarCharacter = null;
   var axis = $('option:selected', this).attr('axis');
   $(".ver_axis_label").html(axis);
   $( ".ver_axis_label" ).css( "left", "0%" );
@@ -374,7 +376,7 @@ function bindCircleListeners(){
         closeMenu();
       }
     }
-    else{
+    else if (this !== previousCharacter){
       if(!comparing){
         comparing = true;
         closeMenu();
