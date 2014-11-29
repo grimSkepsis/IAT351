@@ -280,13 +280,15 @@ function updateHiddenCharacters(){
 //on ready events bind event listeners
 $( document ).ready(function() {
   createCharacterCircles();
-
+  $( ".ver_axis_label" ).css( "left", "20%" );
+  $( ".ver_axis_label" ).css( "left", "0%" );
 $( "#vert_filter" ).on( "selectmenuchange", function( event, ui ) {
   var value = $('option:selected', this).attr('val');
 
   var axis = $('option:selected', this).attr('axis');
   $(".ver_axis_label").html(axis);
-
+  $( ".ver_axis_label" ).css( "left", "0%" );
+  
   if(value === "cname"){
     sortCharacters("ver",value);
   }else{

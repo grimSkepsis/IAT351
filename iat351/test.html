@@ -4,40 +4,8 @@
 <script src="lib/jcarousel/jquery.jcarousel.js"></script>
 </head>
 <body>
-  <!-- Wrapper -->
-  <div>
-    <!-- Carousel -->
-    <div class="jcarousel">
-      <ul>
-        <li>...</li>
-        <li>.2.</li>
-      </ul>
-      <ul>
-        <li>...</li>
-        <li>.3.</li>
-      </ul>
-    </div>
-
-    <!-- Controls -->
-    <a class="jcarousel-prev" href="#">Prev</a>
-    <a class="jcarousel-next" href="#">Next</a>
-  </div>
+  <div style = "position: absolute; background-color:red; width:60px; height:30px;
+   transform: rotate(90deg); left: 10%"><p>A</p></div> <br><br>
+   <div style = "position: absolute; background-color:red; height:30px;
+   transform: rotate(90deg); left: 0%"><p>AAAAAAAAAAA</p></div>
 </body>
-
-<script>
-$( document ).ready(function() {
-
-});
-
-$(function() {
-  $('.jcarousel').jcarousel();
-
-  $('.jcarousel-prev').jcarouselControl({
-    target: '-=1'
-  });
-
-  $('.jcarousel-next').jcarouselControl({
-    target: '+=1'
-  });
-});
-</script>
