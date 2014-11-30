@@ -127,9 +127,10 @@
     <p style = "color:red;">Cons:</p><p style = "color:red;">'.$row['cons'].'</p>
     </div><br>';
   }
+  $charComboResults->free();
 
   $compComboStmt = $db->prepare($comboQuery);
-  $compComboStmt->bind_param('i',$cid);
+  $compComboStmt->bind_param('i',$compId);
   $compComboStmt->execute();
   $compComboResults = $compComboStmt->get_result();
   $compComboString ='';
@@ -142,6 +143,7 @@
     <p style = "color:red;">Cons:</p><p style = "color:red;">'.$row['cons'].'</p>
     </div><br>';
   }
+  $compComboResults->free();
 
   $db->close();
   echo("<h3>".stripslashes($charInfo['character_name'])."</h3>");
