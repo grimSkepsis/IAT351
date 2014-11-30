@@ -1,7 +1,7 @@
 .content_tab{
   font-size: 12px;
   overflow:auto;
-  height: 80%;
+  height: 85%;
 }
 
 .content_tab h3{
@@ -10,6 +10,22 @@
 }
 
 .content_tab h4{
+  font-size: .75em;
+  font-style: italic;
+  text-align:center;
+}
+
+.content_tab_compare{
+  font-size: 12px;
+  overflow:auto;
+  height: 75%;
+}
+.content_tab_compare h3{
+  font-size: 1em;
+  text-align:center;
+}
+
+.content_tab_compare h4{
   font-size: .75em;
   font-style: italic;
   text-align:center;
