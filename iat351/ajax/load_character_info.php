@@ -1,6 +1,8 @@
 <?php
   $backend_enabled = true;
   if($backend_enabled){
+
+  //info query
   $db = new mysqli("localhost","fight_game_user","pass","character_db");
   $query = "SELECT character_stats.attack, character_stats.health, character_stats.guard_gauge,
               character_stats.speed, character_stats.utility, character_stats.difficulty,
@@ -20,6 +22,7 @@
   $results = $stmt->get_result();
   $info = $results->fetch_array(MYSQLI_ASSOC);
 
+  //move query
   $moveQuery = " SELECT *
   FROM character_moves
   WHERE character_id = ?
@@ -29,21 +32,44 @@
   $moveStmt->bind_param('i',$cid);
   $moveStmt->execute();
   $moveResults = $moveStmt->get_result();
-
   $moveTabString ='';
   while($row = $moveResults->fetch_array(MYSQLI_ASSOC)){
     $moveTabString.='<div><h2>'.$row['name'].'</h2>
-                    <img src = '.$row['img'].'>
-                    <p>Damage: '.$row['damage'].'</p>
-                    <p>Description:</p><p>'.$row['description'].'</p>
-                    <p style = "color:green;">Pros:</p><p style = "color:green;">'.$row['pros'].'</p>
-                    <p style = "color:red;">Cons:</p><p style = "color:red;">'.$row['cons'].'</p>
-                    </div><br>';
+    <img src = '.$row['img'].'>
+    <p>Damage: '.$row['damage'].'</p>
+    <p>Description:</p><p>'.$row['description'].'</p>
+    <p style = "color:green;">Pros:</p><p style = "color:green;">'.$row['pros'].'</p>
+    <p style = "color:red;">Cons:</p><p style = "color:red;">'.$row['cons'].'</p>
+    </div><br>';
   }
 
-  echo("<h1>".stripslashes($info['character_name'])."</h1>");
+  //combo query
+  $comboQuery = " SELECT *
+  FROM character_combos
+  WHERE character_id = ?
+  LIMIT 0 , 30";
+  $comboStmt = $db->prepare($comboQuery);
+  $comboStmt->bind_param('i',$cid);
+  $comboStmt->execute();
+  $comboResults = $comboStmt->get_result();
+  $comboTabString ='';
+  while($row = $comboResults->fetch_array(MYSQLI_ASSOC)){
+    $comboTabString.='<div><h2>'.$row['title'].'</h2>
+    <img src = '.$row['inputs'].'>
+    <p>Damage: '.$row['damage'].'</p>
+    <p>Description:</p><p>'.$row['description'].'</p>
+    <p style = "color:green;">Pros:</p><p style = "color:green;">'.$row['pros'].'</p>
+    <p style = "color:red;">Cons:</p><p style = "color:red;">'.$row['cons'].'</p>
+    </div><br>';
+  }
+  //free all of our results
   $results->free();
+  $moveResults->free();
+  $comboResults->free();
   $db->close();
+
+  echo("<h1>".stripslashes($info['character_name'])."</h1>");
+
 }else{
   echo("<h1>Character Name</h1>");
 }
@@ -59,7 +85,7 @@ echo '<div class="tabs" style = "height:70%">
   </ul>
   <div id="tabs-1" class = "content_tab">'.$moveTabString.'
   </div>
-  <div id="tabs-2">
+  <div id="tabs-2" class = "content_tab">'.$comboTabString.'
   </div>
   <div class = "content_tab" id="tabs-3">
   <h3>Character Stats</h3>

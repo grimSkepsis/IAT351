@@ -355,6 +355,9 @@ $('#dialog').on( "dialogclose", function( event, ui ) {
   if(!primedToCompare && !sortingSimilar){
     deselectCharacter(previousCharacter);
     previousCharacter = null;
+  }if(primedToCompare){
+    deselectCharacter(compareCharacter);
+    compareCharacter = null;
   }
 });
 });
